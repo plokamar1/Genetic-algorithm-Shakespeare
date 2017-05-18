@@ -5,8 +5,10 @@ class Population:
         self.fitness = []
         self.population = []
         self.target = target
+        self.mutationRate = mutationRate
         self.TotalPopulation = TotalPopulation
 
+        self.generation = 0
         self.populate()
         self.get_fitness()
 
@@ -18,5 +20,14 @@ class Population:
     def get_fitness(self):
         for individual in self.population:
             self.fitness.append(individual.get_fitness())
+        
+    def generate(self):
+        self.bucket = []
+        cnt = 0
+        #Create bucket with parents
+        for individual in self.population:
+            for i in range(0, self.fitness[cnt]):
+                self.bucket.append(individual)
+            cnt += 1
         
     
