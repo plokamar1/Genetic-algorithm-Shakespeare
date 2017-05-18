@@ -29,5 +29,17 @@ class Population:
             for i in range(0, self.fitness[cnt]):
                 self.bucket.append(individual)
             cnt += 1
+        self.population = []
+        self.fitness = []
+        #choose random parents to make a new child with their genes
+        for cnt in range(0, self.TotalPopulation):
+            randParentA = self.bucket[random.randint(0, len(self.bucket)-1)]
+            randParentB = self.bucket[random.randint(0, len(self.bucket)-1)]
+            child = randParentA.crossover(randParentB)
+            child.mutate(self.mutationRate)
+            self.fitness.append(child.get_fitness())
+            self.population.append(child)
+            print(''.join(child.get_genes())+' '+str(child.get_fitness())+' '+str(self.generation))
+        self.generation += 1
         
     
