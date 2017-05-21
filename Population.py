@@ -9,6 +9,7 @@ class Population:
         self.mutationRate = mutationRate
         self.TotalPopulation = TotalPopulation
         self.generation = 0
+        self.FinalScore = 100
 
     def populate(self):
         self.population = []
@@ -20,7 +21,7 @@ class Population:
     def get_fitness(self):
         for individual in self.population:
             self.fitness.append(individual.get_fitness())
-        
+
     def generate(self):
         found = None
         while found == None:
@@ -46,10 +47,10 @@ class Population:
                 self.fitness.append(child.get_fitness())
                 self.population.append(child)
                 print(''.join(child.get_genes()) + ' ' +str(child.get_fitness()) + ' ' + str(self.generation)+' '+str(len(self.bucket)))
-            if 100 in self.fitness:
-                indexNum = self.fitness.index(100)
+            if self.FinalScore in self.fitness:
+                indexNum = self.fitness.index(self.FinalScore)
                 found = self.getResult(self.population[indexNum])
-                    return found
+                return found
             self.generation += 1
             #print(self.generation)
 
@@ -57,4 +58,13 @@ class Population:
         result = {'String': ''.join(child.get_genes()), 'Fitness': child.get_fitness(
         ), 'Generation': self.generation}
         return result
+        #print(self.bucket)
 
+    #print(self.fitness)
+
+        # for individual in self.population:
+        #     print(individual.get_genes())
+
+# pops = Population(200, 'Tsirou Adamantia', 0.01)
+# for i in range(0 , 100000000000000000000000000000):
+#     pops.generate()
