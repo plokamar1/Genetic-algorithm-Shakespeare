@@ -8,7 +8,6 @@ class Population:
         self.target = target
         self.mutationRate = mutationRate
         self.TotalPopulation = TotalPopulation
-
         self.generation = 0
         self.FinalScore = 100
         self.populate()
@@ -29,12 +28,16 @@ class Population:
             self.bucket = []
             cnt = 0
             #Create bucket with parents
-            for individual in self.population:
-                for i in range(0, self.fitness[cnt]):
-                    self.bucket.append(individual)
-                cnt += 1
+            if max(self.fitness) == 0:
+                self.bucket = self.population
+            else:
+                for individual in self.population:
+                    for i in range(0, self.fitness[cnt]+1):
+                        self.bucket.append(individual)
+                    cnt += 1
             self.population = []
             self.fitness = []
+
             #choose random parents to make a new child with their genes
             for cnt in range(0, self.TotalPopulation):
                 RandomEntry = random.randrange(0, len(self.bucket))
@@ -48,7 +51,7 @@ class Population:
                 child.mutate(self.mutationRate)
                 self.fitness.append(child.get_fitness())
                 self.population.append(child)
-                print(''.join(child.get_genes()) + ' ' +str(child.get_fitness()) + ' ' + str(self.generation)+' '+str(len(self.bucket)))
+                print(''.join(child.get_genes()) + ' ' +str(child.get_fitness()) + ' ' + str(self.generation)+' '+str(len(self.bucket))+' '+str(max(self.fitness)))
             if self.FinalScore in self.fitness:
                 indexNum = self.fitness.index(self.FinalScore)
                 found = self.getResult(self.population[indexNum])
