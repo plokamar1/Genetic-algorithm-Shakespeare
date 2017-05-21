@@ -8,6 +8,7 @@ class Population:
         self.target = target
         self.mutationRate = mutationRate
         self.TotalPopulation = TotalPopulation
+
         self.generation = 0
         self.FinalScore = 100
 
@@ -15,8 +16,6 @@ class Population:
         self.population = []
         for i in range(0, self.TotalPopulation):
             self.population.append(DNA(len(self.target), self.target))
-        print('Initial population created')
-            #print(self.population[i].get_genes())
 
     def get_fitness(self):
         for individual in self.population:
@@ -37,11 +36,12 @@ class Population:
             #choose random parents to make a new child with their genes
             for cnt in range(0, self.TotalPopulation):
                 RandomEntry = random.randrange(0, len(self.bucket))
+
                 randParentA = self.bucket[RandomEntry]
 
                 RandomEntry = random.randrange(0, len(self.bucket))
-                randParentB = self.bucket[RandomEntry]
 
+                randParentB = self.bucket[RandomEntry]
                 child = randParentA.crossover(randParentB)
                 child.mutate(self.mutationRate)
                 self.fitness.append(child.get_fitness())
@@ -52,19 +52,7 @@ class Population:
                 found = self.getResult(self.population[indexNum])
                 return found
             self.generation += 1
-            #print(self.generation)
 
     def getResult(self, child):
-        result = {'String': ''.join(child.get_genes()), 'Fitness': child.get_fitness(
-        ), 'Generation': self.generation}
+        result = {'String':''.join(child.get_genes()),'Fitness':child.get_fitness(),'Generation':self.generation}
         return result
-        #print(self.bucket)
-
-    #print(self.fitness)
-
-        # for individual in self.population:
-        #     print(individual.get_genes())
-
-# pops = Population(200, 'Tsirou Adamantia', 0.01)
-# for i in range(0 , 100000000000000000000000000000):
-#     pops.generate()
