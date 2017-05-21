@@ -2,8 +2,11 @@ from Population import *
 
 if __name__ == "__main__":
     populationNumber = 200
-    Goal = 'I am a little unicorn'
+    Goal = 'To be or not to be.'
     mutationRate = 0.01
-    
+
     pops = Population(populationNumber, Goal, mutationRate)
-    result = pops.generate()
+    pops.populate()
+    pops.get_fitness()
+    res = pops.generate()
+    print(res)
