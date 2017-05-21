@@ -1,12 +1,10 @@
 from Population import *
 
 if __name__ == "__main__":
-    populationNumber = 200
-    Goal = 'To be or not to be.'
+    populationNumber = 500
+    Goal = 'O papas o paxys efage paxia fakh, giati papa paxy efages paxia fakh?'
     mutationRate = 0.01
 
     pops = Population(populationNumber, Goal, mutationRate)
-    pops.populate()
-    pops.get_fitness()
     res = pops.generate()
     print(res)

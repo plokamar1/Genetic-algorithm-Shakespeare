@@ -11,13 +11,15 @@ class Population:
 
         self.generation = 0
         self.FinalScore = 100
+        self.populate()
 
     def populate(self):
         self.population = []
         for i in range(0, self.TotalPopulation):
             self.population.append(DNA(len(self.target), self.target))
+        self.gather_fitness()
 
-    def get_fitness(self):
+    def gather_fitness(self):
         for individual in self.population:
             self.fitness.append(individual.get_fitness())
 
